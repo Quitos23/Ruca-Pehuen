@@ -1,27 +1,5 @@
 {
-  "name": "Ruca Pehuén",
   "nodes": [
-    {
-      "parameters": {
-        "operation": "executeQuery",
-        "query": "SELECT kcu.column_name\nFROM information_schema.table_constraints tc\nJOIN information_schema.key_column_usage kcu\n  ON tc.constraint_name = kcu.constraint_name\nWHERE tc.table_name = 'reserva_datos'\n  AND tc.constraint_type = 'PRIMARY KEY';",
-        "options": {}
-      },
-      "type": "n8n-nodes-base.postgres",
-      "typeVersion": 2.6,
-      "position": [
-        -5120,
-        240
-      ],
-      "id": "23874707-2a96-4f46-be78-9aa166c73c6e",
-      "name": "Execute a SQL query",
-      "credentials": {
-        "postgres": {
-          "id": "aYNXt4t24s3k3bWz",
-          "name": "Postgres account"
-        }
-      }
-    },
     {
       "parameters": {},
       "type": "n8n-nodes-base.noOp",
@@ -2281,70 +2259,7 @@
       "name": "Seteo - Datos para reserva"
     }
   ],
-  "pinData": {
-    "Webhook": [
-      {
-        "json": {
-          "headers": {
-            "host": "n8n-hostinger-n8n.ceuf3o.easypanel.host",
-            "user-agent": "axios/0.27.2",
-            "content-length": "512",
-            "accept": "application/json, text/plain, */*",
-            "content-type": "application/json",
-            "traceparent": "00-f840d0b644307f0314e4a1516cb59678-9ee5747a3dfe26ab-01",
-            "x-forwarded-for": "34.55.141.9",
-            "x-forwarded-host": "n8n-hostinger-n8n.ceuf3o.easypanel.host",
-            "x-forwarded-port": "443",
-            "x-forwarded-proto": "https",
-            "x-forwarded-server": "01e6a3901bb6",
-            "x-real-ip": "34.55.141.9",
-            "x-wa-event-id": "33ba9227-d351-44ad-a6b9-0386472a0b9e",
-            "x-wa-timestamp": "1780417186167",
-            "accept-encoding": "gzip"
-          },
-          "params": {},
-          "query": {},
-          "body": {
-            "version": "1.0",
-            "event": "whatsapp.inbound",
-            "eventId": "33ba9227-d351-44ad-a6b9-0386472a0b9e",
-            "timestamp": "2026-06-02T16:19:46.165Z",
-            "locationId": "JhTCrnSxd7cSZoKsO6Ak",
-            "payload": {
-              "messageId": "3EB0A9AA9F539E9C2CA790",
-              "locationId": "JhTCrnSxd7cSZoKsO6Ak",
-              "device": {
-                "number": "+5491126076041",
-                "name": "Marco Santini"
-              },
-              "contact": {
-                "id": "ZB4TaJsjhcqbrulyKvgy",
-                "number": "+5491136262943",
-                "name": "Marco"
-              },
-              "message": {
-                "text": "Perdón las fechas son del 4 al 7 de julio"
-              }
-            },
-            "meta": {
-              "traceId": "5f21c1eedbbeaddab7b3f466c7f6fb57"
-            }
-          },
-          "webhookUrl": "https://n8n-hostinger-n8n.ceuf3o.easypanel.host/webhook/532d5cae-9990-470f-9fa7-5d693f7ea0d2",
-          "executionMode": "production"
-        },
-        "pairedItem": {
-          "item": 0
-        }
-      }
-    ]
-  },
   "connections": {
-    "Execute a SQL query": {
-      "main": [
-        []
-      ]
-    },
     "If": {
       "main": [
         [
@@ -2374,6 +2289,17 @@
         ]
       ]
     },
+    "Merge3": {
+      "main": [
+        [
+          {
+            "node": "Ya se comunicó el precio?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
     "Edit Fields": {
       "main": [
         [
@@ -2385,11 +2311,11 @@
         ]
       ]
     },
-    "Merge3": {
+    "Merge2": {
       "main": [
         [
           {
-            "node": "Ya se comunicó el precio?",
+            "node": "Revisar  CP, E, S, T, DV, PI, ET",
             "type": "main",
             "index": 0
           }
@@ -2448,17 +2374,6 @@
         [
           {
             "node": "Hay fechas?",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Merge2": {
-      "main": [
-        [
-          {
-            "node": "Revisar  CP, E, S, T, DV, PI, ET",
             "type": "main",
             "index": 0
           }
@@ -2549,6 +2464,17 @@
         ]
       ]
     },
+    "Normalizar buffer Redis": {
+      "main": [
+        [
+          {
+            "node": "Espera/Borrado de DB",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
     "Almacenamiento de fechas": {
       "main": [
         [
@@ -2627,17 +2553,6 @@
         [
           {
             "node": "Enviar primer msj",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Normalizar buffer Redis": {
-      "main": [
-        [
-          {
-            "node": "Espera/Borrado de DB",
             "type": "main",
             "index": 0
           }
@@ -2797,6 +2712,17 @@
         ]
       ]
     },
+    "Texto": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 2
+          }
+        ]
+      ]
+    },
     "Imagen": {
       "main": [
         [
@@ -2826,6 +2752,17 @@
             "node": "Audio",
             "type": "main",
             "index": 0
+          }
+        ]
+      ]
+    },
+    "Audio": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 1
           }
         ]
       ]
@@ -2947,28 +2884,6 @@
             "node": "Set Fields",
             "type": "main",
             "index": 0
-          }
-        ]
-      ]
-    },
-    "Texto": {
-      "main": [
-        [
-          {
-            "node": "Merge",
-            "type": "main",
-            "index": 2
-          }
-        ]
-      ]
-    },
-    "Audio": {
-      "main": [
-        [
-          {
-            "node": "Merge",
-            "type": "main",
-            "index": 1
           }
         ]
       ]
@@ -3108,6 +3023,11 @@
         ]
       ]
     },
+    "Execute a SQL query2": {
+      "main": [
+        []
+      ]
+    },
     "If3": {
       "main": [
         [
@@ -3213,11 +3133,6 @@
         ]
       ]
     },
-    "Execute a SQL query2": {
-      "main": [
-        []
-      ]
-    },
     "enviar_whatsapp_gerente": {
       "ai_tool": [
         [
@@ -3281,20 +3196,9 @@
       ]
     }
   },
-  "active": true,
-  "settings": {
-    "executionOrder": "v1",
-    "binaryMode": "separate",
-    "timeSavedMode": "fixed",
-    "timezone": "America/Argentina/Buenos_Aires",
-    "callerPolicy": "workflowsFromSameOwner",
-    "availableInMCP": false
-  },
-  "versionId": "e9c9f0e5-9334-4dbe-ac99-484b3483eb17",
+  "pinData": {},
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "b5947e419e08758b08bd2aa74f40d7c4d5ad596bba057945428c7f99a4bd0116"
-  },
-  "id": "pEWW8mZ4vpXmzrbG",
-  "tags": []
+  }
 }
